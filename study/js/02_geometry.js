@@ -46,83 +46,101 @@ class App {
 		this._scene.add(light);
 	}
 
+	// _setupModel() {
+	// 	//BoxGeometry
+	// 	// const geometry = new THREE.BoxGeometry(1, 1, 1);
+
+	// 	//CircleGeometry
+	// 	// const geometry = new THREE.CircleGeometry(0.9, 16, 0, Math.PI);
+	// 	//Math.PI는 180도를 의미함.
+	// 	//Defuault : _(three o'clock position)_.
+	// 	//시계방향으로 회전.
+
+	// 	//ConeGeometry
+	// 	// const geometry = new THREE.ConeGeometry(
+	// 	// 	1,
+	// 	// 	2,
+	// 	// 	undefined,
+	// 	// 	undefined,
+	// 	// 	true,
+	// 	// 	Math.PI * 0,
+	// 	// 	Math.PI
+	// 	// );
+
+	// 	//CylinderGeometry
+	// 	// const geometry = new THREE.CylinderGeometry(
+	// 	// 	2,
+	// 	// 	2,
+	// 	// 	4,
+	// 	// 	3,
+	// 	// 	3,
+	// 	// 	true,
+	// 	// 	0,
+	// 	// 	Math.PI
+	// 	// );
+
+	// 	//SphereGeometry
+	// 	// const geometry = new THREE.SphereGeometry(
+	// 	// 	0.5,
+	// 	// 	16,
+	// 	// 	16,
+	// 	// 	0,
+	// 	// 	Math.PI,
+	// 	// 	0,
+	// 	// 	Math.PI * 0.4
+	// 	// );
+
+	// 	//RingGeometry
+	// 	// const geometry = new THREE.RingGeometry(0.3, 1, 7, 3, 0, Math.PI * 0.8);
+
+	// 	//PlaneGeometry
+	// 	// const geometry = new THREE.PlaneGeometry(2, 2, 2, 1);
+
+	// 	//TorusGeometry
+	// 	// const geometry = new THREE.TorusGeometry(1, 0.1, 24, 8, Math.PI * 1.5);
+
+	// 	//TorusKnotGeometry
+	// 	const geometry = new THREE.TorusKnotGeometry();
+
+	// 	//지리정보 시스템, GIS에서 사용됨. 3차원 지형표현에 유용하게 사용되어짐.
+	// 	const fillMaterial = new THREE.MeshPhongMaterial({ color: 0x515151 });
+	// 	const cube = new THREE.Mesh(geometry, fillMaterial);
+
+	// 	const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffff00 });
+	// 	const line = new THREE.LineSegments(
+	// 		new THREE.WireframeGeometry(geometry),
+	// 		//WireframeGeometry 모든 외곽선이
+	// 		lineMaterial
+	// 	);
+
+	// 	const group = new THREE.Group();
+	// 	group.add(cube);
+	// 	group.add(line);
+	// 	// const geometry = new THREE.BoxGeometry(1, 1, 1);
+	// 	// const material = new THREE.MeshPhongMaterial({ color: 0x44aa88 });
+	// 	// const cube = new THREE.Mesh(geometry, material);
+
+	// 	this._scene.add(group);
+	// 	this._cube = group;
+	// }
 	_setupModel() {
-		//BoxGeometry
-		// const geometry = new THREE.BoxGeometry(1, 1, 1);
+		const shape = new THREE.Shape();
+		shape.moveTo(1, 1);
+		shape.lineTo(1, -1);
+		shape.lineTo(-1, -1);
+		shape.lineTo(-1, 1);
+		shape.closePath();
 
-		//CircleGeometry
-		// const geometry = new THREE.CircleGeometry(0.9, 16, 0, Math.PI);
-		//Math.PI는 180도를 의미함.
-		//Defuault : _(three o'clock position)_.
-		//시계방향으로 회전.
+		const geometry = new THREE.BufferGeometry();
+		const points = shape.getPoints();
+		geometry.setFromPoints(points);
 
-		//ConeGeometry
-		// const geometry = new THREE.ConeGeometry(
-		// 	1,
-		// 	2,
-		// 	undefined,
-		// 	undefined,
-		// 	true,
-		// 	Math.PI * 0,
-		// 	Math.PI
-		// );
+		const material = new THREE.LineBasicMaterial({ color: 0xffff00 });
+		const line = new THREE.Line(geometry, material);
 
-		//CylinderGeometry
-		// const geometry = new THREE.CylinderGeometry(
-		// 	2,
-		// 	2,
-		// 	4,
-		// 	3,
-		// 	3,
-		// 	true,
-		// 	0,
-		// 	Math.PI
-		// );
-
-		//SphereGeometry
-		// const geometry = new THREE.SphereGeometry(
-		// 	0.5,
-		// 	16,
-		// 	16,
-		// 	0,
-		// 	Math.PI,
-		// 	0,
-		// 	Math.PI * 0.4
-		// );
-
-		//RingGeometry
-		// const geometry = new THREE.RingGeometry(0.3, 1, 7, 3, 0, Math.PI * 0.8);
-
-		//PlaneGeometry
-		// const geometry = new THREE.PlaneGeometry(2, 2, 2, 1);
-
-		//TorusGeometry
-		// const geometry = new THREE.TorusGeometry(1, 0.1, 24, 8, Math.PI * 1.5);
-
-		//TorusKnotGeometry
-		const geometry = new THREE.TorusKnotGeometry();
-
-		//지리정보 시스템, GIS에서 사용됨. 3차원 지형표현에 유용하게 사용되어짐.
-		const fillMaterial = new THREE.MeshPhongMaterial({ color: 0x515151 });
-		const cube = new THREE.Mesh(geometry, fillMaterial);
-
-		const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffff00 });
-		const line = new THREE.LineSegments(
-			new THREE.WireframeGeometry(geometry),
-			//WireframeGeometry 모든 외곽선이
-			lineMaterial
-		);
-
-		const group = new THREE.Group();
-		group.add(cube);
-		group.add(line);
-		// const geometry = new THREE.BoxGeometry(1, 1, 1);
-		// const material = new THREE.MeshPhongMaterial({ color: 0x44aa88 });
-		// const cube = new THREE.Mesh(geometry, material);
-
-		this._scene.add(group);
-		this._cube = group;
+		this._scene.add(line);
 	}
+
 	onResize() {
 		const width = this._divContainer.clientWidth;
 		const height = this._divContainer.clientHeight;
