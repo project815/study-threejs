@@ -141,14 +141,25 @@ class App {
 		// shape.lineTo(-1, 1);
 		// shape.closePath();
 
-		const geometry = new THREE.BufferGeometry();
-		const points = shape.getPoints();
-		geometry.setFromPoints(points);
+		const geometry = new THREE.ShapeGeometry(shape);
 
-		const material = new THREE.LineBasicMaterial({ color: 0xffff00 });
-		const line = new THREE.Line(geometry, material);
+		//지리정보 시스템, GIS에서 사용됨. 3차원 지형표현에 유용하게 사용되어짐.
+		const fillMaterial = new THREE.MeshPhongMaterial({ color: 0x515151 });
+		const cube = new THREE.Mesh(geometry, fillMaterial);
 
-		this._scene.add(line);
+		const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffff00 });
+		const line = new THREE.LineSegments(
+			new THREE.WireframeGeometry(geometry),
+			//WireframeGeometry 모든 외곽선이
+			lineMaterial
+		);
+
+		const group = new THREE.Group();
+		group.add(cube);
+		group.add(line);
+
+		this._scene.add(group);
+		this._cube = group;
 	}
 
 	onResize() {
