@@ -37,6 +37,7 @@ class App {
 		const height = this._divContainer.clientHeight;
 		const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
 		camera.position.x = -10;
+		ㄴ;
 		camera.position.z = 14;
 		this._camera = camera;
 	}
@@ -252,85 +253,85 @@ class App {
 	// 	this._scene.add(line);
 	// }
 	/* custom geometry : ExtrudeGeometry mesh*/
-	// _setupModel() {
-	// 	const shape = new THREE.Shape();
-	// 	const x = -2.5,
-	// 		y = -2.5;
-	// 	shape.moveTo(x + 2.5, y + 2.5);
-	// 	shape.bezierCurveTo(x + 2.5, y + 2.5, x + 2, y, x, y);
-	// 	shape.bezierCurveTo(x - 3, y, x - 3, y + 3.5, x - 3, y + 3.5);
-	// 	shape.bezierCurveTo(x - 3, y + 5.5, x - 1.5, y + 7.7, x + 2.5, y + 9.5);
-	// 	shape.bezierCurveTo(x + 6, y + 7.7, x + 8, y + 4.5, x + 8, y + 3.5);
-	// 	shape.bezierCurveTo(x + 8, y + 3.5, x + 8, y, x + 5, y);
-	// 	shape.bezierCurveTo(x + 3.5, y, x + 2.5, y + 2.5, x + 2.5, y + 2.5);
-
-	// 	const setting = {
-	// 		steps: 5, //깊이에 대한 세그먼트 수
-	// 		depth: 10, //깊이
-	// 		bevelEnabled: true, //베벨을 사용할 것인지
-	// 		bevelThickness: 0.8,
-	// 		bevelSize: 1,
-	// 		bevelSegments: 2,
-	// 	};
-	// 	const geometry = new THREE.ExtrudeGeometry(shape, setting);
-
-	// 	const fillMaterial = new THREE.MeshPhongMaterial({ color: 0x515151 });
-	// 	const cube = new THREE.Mesh(geometry, fillMaterial);
-
-	// 	const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffff00 });
-	// 	const line = new THREE.LineSegments(
-	// 		new THREE.WireframeGeometry(geometry),
-	// 		//WireframeGeometry 모든 외곽선이
-	// 		lineMaterial
-	// 	);
-
-	// 	const group = new THREE.Group();
-	// 	group.add(cube);
-	// 	group.add(line);
-
-	// 	this._scene.add(group);
-	// 	this._cube = group;
-
-	// 	this._scene.add(line);
-	// }
-	/* custom geometry : text mesh*/
 	_setupModel() {
-		const fontLoader = new THREE.fontLoader();
-		async function loadFont(that) {
-			const url = "../../examples/fonts/helvetiker_regular.typeface.json";
-			const font = await Promise((resolve, reject) => {
-				fontLoader.load(url, resolve, undefined, reject);
-			});
+		const shape = new THREE.Shape();
+		const x = -2.5,
+			y = -2.5;
+		shape.moveTo(x + 2.5, y + 2.5);
+		shape.bezierCurveTo(x + 2.5, y + 2.5, x + 2, y, x, y);
+		shape.bezierCurveTo(x - 3, y, x - 3, y + 3.5, x - 3, y + 3.5);
+		shape.bezierCurveTo(x - 3, y + 5.5, x - 1.5, y + 7.7, x + 2.5, y + 9.5);
+		shape.bezierCurveTo(x + 6, y + 7.7, x + 8, y + 4.5, x + 8, y + 3.5);
+		shape.bezierCurveTo(x + 8, y + 3.5, x + 8, y, x + 5, y);
+		shape.bezierCurveTo(x + 3.5, y, x + 2.5, y + 2.5, x + 2.5, y + 2.5);
 
-			const geometry = new THREE.TextGeometry("Hello", {
-				font: font,
-				size: 0.5,
-				height: 1.8,
-				curveSegments: 4,
-				//setting for extrudeGeometry
-				bevelEnabled: true,
-				bevelThickness: 0.1,
-				bevelSize: 0.1,
-				bevelSigments: 3,
-			});
-			const fillMaterial = new THREE.MeshPhongMaterial({ color: 0x515151 });
-			const cube = new THREE.Mesh(geometry, fillMaterial);
+		const setting = {
+			steps: 5, //깊이에 대한 세그먼트 수
+			depth: 10, //깊이
+			bevelEnabled: true, //베벨을 사용할 것인지
+			bevelThickness: 0.8,
+			bevelSize: 1,
+			bevelSegments: 2,
+		};
+		const geometry = new THREE.ExtrudeGeometry(shape, setting);
 
-			const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffff00 });
-			const line = new THREE.LineSegments(
-				new THREE.WireframeGeometry(geometry),
-				//WireframeGeometry 모든 외곽선이
-				lineMaterial
-			);
-			const group = new THREE.Group();
-			group.add(cube);
-			group.add(line);
-			that._scene.add(group);
-			that._cube = group;
-		}
+		const fillMaterial = new THREE.MeshPhongMaterial({ color: 0x515151 });
+		const cube = new THREE.Mesh(geometry, fillMaterial);
 
-		loadFont(this);
+		const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffff00 });
+		const line = new THREE.LineSegments(
+			new THREE.WireframeGeometry(geometry),
+			//WireframeGeometry 모든 외곽선이
+			lineMaterial
+		);
+
+		const group = new THREE.Group();
+		group.add(cube);
+		group.add(line);
+
+		this._scene.add(group);
+		this._cube = group;
+
+		this._scene.add(line);
 	}
+	/* custom geometry : text mesh*/
+	// _setupModel() {
+	// 	const fontLoader = new THREE.fontLoader();
+	// 	async function loadFont(that) {
+	// 		const url = "../../examples/fonts/helvetiker_regular.typeface.json";
+	// 		const font = await Promise((resolve, reject) => {
+	// 			fontLoader.load(url, resolve, undefined, reject);
+	// 		});
+
+	// 		const geometry = new THREE.TextGeometry("Hello", {
+	// 			font: font,
+	// 			size: 0.5,
+	// 			height: 1.8,
+	// 			curveSegments: 4,
+	// 			//setting for extrudeGeometry
+	// 			bevelEnabled: true,
+	// 			bevelThickness: 0.1,
+	// 			bevelSize: 0.1,
+	// 			bevelSigments: 3,
+	// 		});
+	// 		const fillMaterial = new THREE.MeshPhongMaterial({ color: 0x515151 });
+	// 		const cube = new THREE.Mesh(geometry, fillMaterial);
+
+	// 		const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffff00 });
+	// 		const line = new THREE.LineSegments(
+	// 			new THREE.WireframeGeometry(geometry),
+	// 			//WireframeGeometry 모든 외곽선이
+	// 			lineMaterial
+	// 		);
+	// 		const group = new THREE.Group();
+	// 		group.add(cube);
+	// 		group.add(line);
+	// 		that._scene.add(group);
+	// 		that._cube = group;
+	// 	}
+
+	// 	loadFont(this);
+	// }
 
 	onResize() {
 		const width = this._divContainer.clientWidth;
